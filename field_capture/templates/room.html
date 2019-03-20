@@ -1,0 +1,33 @@
+<!Doctype>
+<html>
+	<head>
+		<title>Room page</title>
+		<meta charset='utf-8'>
+	</head>
+	<body>
+		<div>
+			FIELD
+			{% for el in db_data %}
+				{{ el }}
+			{% endfor %}			
+
+
+		</div>
+		<div>
+			PLAYERS
+		</div>
+		<div>
+			CHAT
+		</div>
+		<div>
+			<a href="{{url_for('room.exit_r')}}">Exit room</a>	
+		</div>
+		<script type=text/javascript src="{{ url_for('static', filename='jquery.js') }}">
+		</script>
+		<script type=text/javascript>
+			$SCRIPT_ROOT= {{ request.script_root|tojson|safe}};
+		</script>
+	</body>
+
+</html>
+

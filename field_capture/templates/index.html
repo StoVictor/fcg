@@ -1,0 +1,57 @@
+<!Doctype html>
+<html>
+	<head>
+		<title>Fantastic game</title>
+		<meta charset="utf-8">
+	</head>
+	<body>
+
+		<div>
+			<form method='POST'>
+				Create or change username: 
+				<input type='text' name='username'></input>
+				<input type='submit' value='Ok', id='sub' name='sub'></input>
+			</form>
+			<p> {% for d in g.db_data  %}
+				<div>{{ d['username'] }}</div>
+		    	{% endfor %}
+			</p>
+			<h3>{{ session['username'] }} , {{request.form['Create']}}</h3>
+			{% for message in get_flashed_messages() %}
+				{{ message }}
+			{% endfor %}
+		</div>
+		<div>
+			<form method='POST'>
+				Write a room name:
+				<input type='text' name='room_name'></input>
+				<input type='submit' value='Create a room' name='Create'></input>
+				<div> 
+					<input type='radio' value='2' name='room_size' checked=True>Two players</input><br>
+					<input type='radio' value='3' name='room_size'>Three players</input><br>
+					<input type='radio' value='4' name='room_size'>Four players</input><br>
+				</div>
+				<br>
+				<div>
+					<input type='radio' value='pub' name='room_type' checked=True>Public room</input><br>
+					<input type='radio' value='priv' name='room_type' checked=True>Private room</input><br>
+				</div>
+			</form>
+		</div>
+		<div>
+			<form method='POST'>
+				Write a code to room:
+				<input type='text' name='room_code'></input>
+				<input type='submit' value='Go to room' name='Find'></input>
+			</form>
+		</div>
+
+		<div>
+			<ul>
+				{% for rm in rooms %}
+				<li><a href="{{url_for('room.room', room_id=rm['id'])}}"> {{ rm['room_name'] }}, free_places: {{rm['free_place']}}</a></li>
+				{%endfor%}
+			</ul>
+		</div>
+	</body>
+</html>
